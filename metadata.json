@@ -1,0 +1,6 @@
+{
+  "name": "RiskProtector AI - Cyber Threat & Scam Shield",
+  "description": "AI-powered real-time security scanner for URLs, text phishing, Instagram fake account detection, and live camera photo analysis.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
