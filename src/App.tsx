@@ -115,18 +115,23 @@ export default function App() {
                   : 'text-white drop-shadow-[0_0_18px_rgba(34,211,238,0.35)]'
               }`}
             >
-              TRUSTSHIELD AI
+              Trust Anchor
             </h1>
-            <span className="text-[10px] text-cyan-400 font-mono tracking-widest hidden sm:block">
-              DIGITAL RISK PROTECTION
+            <span className="text-[11px] sm:text-xs text-cyan-400 font-medium tracking-wide">
+              — for stability and reliability
             </span>
           </div>
         ) : (
-          <div className="flex items-center gap-1 cursor-pointer" onClick={() => setActiveScreen('hub')}>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActiveScreen('hub')}>
             <Shield className="w-5 h-5 text-amber-400" />
-            <span className="font-extrabold text-sm sm:text-base tracking-wider uppercase">
-              TRUSTSHIELD AI
-            </span>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-sm sm:text-base tracking-wider uppercase leading-tight">
+                Trust Anchor
+              </span>
+              <span className="text-[10px] text-cyan-400 font-medium hidden sm:block leading-tight">
+                — for stability and reliability
+              </span>
+            </div>
           </div>
         )}
 
@@ -192,7 +197,7 @@ export default function App() {
                 className="w-full flex items-center gap-2 p-2 rounded-xl hover:bg-slate-800/40 text-left font-semibold cursor-pointer"
               >
                 <Shield className="w-4 h-4 text-amber-400" />
-                <span>Main Shield Orbit Hub</span>
+                <span>Trust Anchor Orbit Hub</span>
               </button>
 
               <button
@@ -269,7 +274,6 @@ export default function App() {
       {activeScreen === 'hub' ? (
         <OrbitHub
           isLight={isLight}
-          xp={xp}
           onNavigate={(screenId) => {
             if (screenId === 'mobile-sync') {
               setIsMobileModalOpen(true);
@@ -293,16 +297,8 @@ export default function App() {
               }`}
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Back to Main Shield</span>
+              <span>Back to Trust Anchor</span>
             </button>
-
-            <span
-              className={`text-xs font-mono font-semibold tabular-nums ${
-                isLight ? 'text-emerald-600' : 'text-emerald-400'
-              }`}
-            >
-              ★ {xp} XP
-            </span>
           </div>
 
           {/* Subview Components */}
@@ -359,7 +355,7 @@ export default function App() {
         <div className="flex items-center gap-2">
           <Shield className="w-4 h-4 text-amber-400" />
           <span className={isLight ? 'text-slate-700' : 'text-slate-400'}>
-            TrustShield AI — Your Digital Safety Guardian
+            Trust Anchor — for stability and reliability
           </span>
         </div>
 
@@ -371,8 +367,6 @@ export default function App() {
             <Smartphone className="w-3.5 h-3.5" />
             <span>Copy / Scan on Mobile</span>
           </button>
-          <span>|</span>
-          <span className="text-emerald-400">★ {xp} Security XP</span>
         </div>
       </footer>
 

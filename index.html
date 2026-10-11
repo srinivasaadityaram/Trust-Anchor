@@ -6,12 +6,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>RiskProtector AI — Your Digital Safety Guardian</title>
-    <meta name="description" content="AI-powered real-time security scanner for URLs, text phishing, Instagram fake account detection, and live camera photo analysis." />
-    <meta property="og:title" content="RiskProtector AI - Cyber Threat & Scam Shield" />
-    <meta property="og:description" content="AI-powered real-time security scanner for URLs, text phishing, Instagram fake account detection, and live camera photo analysis." />
+    <title>Trust Anchor -for stability and reliability</title>
+    <meta name="description" content="Trust Anchor -for stability and reliability. Digital Risk Protection platform for investigating suspicious links, social media impersonation, and fraudulent apps." />
+    <meta property="og:title" content="Trust Anchor -for stability and reliability" />
+    <meta property="og:description" content="Trust Anchor -for stability and reliability. Digital Risk Protection platform for investigating suspicious links, social media impersonation, and fraudulent apps." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Gracefully handle and prevent WebSocket connection errors in preview iframe
+      if (typeof window !== 'undefined') {
+        const _WS = window.WebSocket;
+        if (_WS) {
+          window.WebSocket = class extends _WS {
+            constructor(...args) {
+              super(...args);
+              this.addEventListener('error', (e) => {
+                if (typeof e.stopImmediatePropagation === 'function') {
+                  e.stopImmediatePropagation();
+                }
+              });
+            }
+          };
+        }
+        window.addEventListener('unhandledrejection', (event) => {
+          if (event.reason && String(event.reason).includes('WebSocket')) {
+            event.preventDefault();
+          }
+        });
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

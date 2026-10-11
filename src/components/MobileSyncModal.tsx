@@ -57,8 +57,8 @@ export const MobileSyncModal: React.FC<MobileSyncModalProps> = ({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'RiskProtector AI Cyber Shield',
-          text: 'Scan URLs, detect fake Instagram accounts, and analyze scams in real time with RiskProtector AI.',
+          title: 'Trust Anchor -for stability and reliability',
+          text: 'Trust Anchor -for stability and reliability. Scan URLs, verify products, and analyze social profiles in real time.',
           url: currentUrl,
         });
       } catch {
@@ -71,11 +71,11 @@ export const MobileSyncModal: React.FC<MobileSyncModalProps> = ({
 
   const handleCopyReportToMobile = async () => {
     if (!reportToShare) return;
-    const formatted = `🛡️ [RiskProtector Security Advisory]
+    const formatted = `🛡️ [Trust Anchor Security Advisory]
 Target: ${reportToShare.target}
 Verdict: ${reportToShare.verdict} (Risk: ${reportToShare.riskScore}%)
 Summary: ${reportToShare.summary}
-Scanned via RiskProtector AI: ${currentUrl}`;
+Scanned via Trust Anchor: ${currentUrl}`;
 
     try {
       await navigator.clipboard.writeText(formatted);

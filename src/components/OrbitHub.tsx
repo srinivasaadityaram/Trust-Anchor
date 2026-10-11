@@ -32,7 +32,7 @@ interface OrbitItem {
 
 interface OrbitHubProps {
   isLight: boolean;
-  xp: number;
+  xp?: number;
   onNavigate: (screenId: string) => void;
   onAddXp: (amount: number) => void;
   onShareReportToMobile: (report: {
@@ -115,7 +115,6 @@ const ORBIT_ITEMS: OrbitItem[] = [
 
 export const OrbitHub: React.FC<OrbitHubProps> = ({
   isLight,
-  xp,
   onNavigate,
   onAddXp,
   onShareReportToMobile,
@@ -125,12 +124,10 @@ export const OrbitHub: React.FC<OrbitHubProps> = ({
   const [scanResult, setScanResult] = useState<ThreatScanReport | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Trigger scan when Shield in middle is clicked:
-  // "when we click on shield it shouldn't be clickable as a redirect, but instead trigger a scan of the provided URL."
-  const handleShieldClick = async () => {
+  const handleRunQuickScan = async () => {
     const target = quickInput.trim();
     if (!target) {
-      setError('Please enter a website link or message text to trigger the scan.');
+      setError('Please enter a website link or message text to scan.');
       return;
     }
 
@@ -170,11 +167,11 @@ export const OrbitHub: React.FC<OrbitHubProps> = ({
       {/* Subtitle / Hook */}
       <div className="text-center mb-4 max-w-xl">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono mb-2">
-          <Zap className="w-3 h-3 text-cyan-400" />
-          <span>Tap Center Shield to Trigger Scan</span>
+          <Shield className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Stability &amp; Reliability Guardian</span>
         </div>
         <p className={`text-xs sm:text-sm ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
-          Select an orbiting module or enter a link/text below and click the central <strong className="text-cyan-400">Shield Icon</strong> to scan!
+          Select an orbiting tool to inspect links, products, mobile applications, and social profiles.
         </p>
       </div>
 
@@ -187,40 +184,23 @@ export const OrbitHub: React.FC<OrbitHubProps> = ({
           }`}
         />
 
-        {/* Center Shield Button (Triggers scan directly!) */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center z-20">
-          <button
-            type="button"
-            onClick={handleShieldClick}
-            disabled={isScanning}
-            title="Click Shield Icon to trigger security scan of provided URL"
-            className={`group relative w-28 h-28 md:w-32 md:h-32 rounded-full border-2 flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer ${
-              isScanning
-                ? 'bg-amber-950/80 border-amber-400 shadow-[0_0_50px_rgba(251,191,36,0.5)]'
-                : isLight
-                ? 'bg-white border-cyan-500 shadow-[0_0_45px_rgba(14,165,233,0.30)] hover:shadow-[0_0_60px_rgba(14,165,233,0.5)]'
-                : 'bg-[#111927] border-cyan-400/80 shadow-[0_0_50px_rgba(34,211,238,0.35)] hover:shadow-[0_0_65px_rgba(34,211,238,0.55)]'
+        {/* Center Logo - PURE LOGO, NOT CLICKABLE TO SCAN */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center z-20 pointer-events-none select-none">
+          <div
+            className={`relative w-28 h-28 md:w-32 md:h-32 rounded-full border-2 flex flex-col items-center justify-center ${
+              isLight
+                ? 'bg-white border-cyan-500 shadow-[0_0_35px_rgba(14,165,233,0.25)]'
+                : 'bg-[#111927] border-cyan-400/80 shadow-[0_0_40px_rgba(34,211,238,0.30)]'
             }`}
           >
-            {isScanning ? (
-              <RefreshCw className="w-10 h-10 md:w-11 md:h-11 text-amber-400 animate-spin" />
-            ) : (
-              <Shield className="w-10 h-10 md:w-11 md:h-11 text-amber-400 stroke-[2.2] group-hover:scale-110 transition-transform" />
-            )}
+            <Shield className="w-10 h-10 md:w-11 md:h-11 text-amber-400 stroke-[2.2]" />
             <span
-              className={`mt-1.5 text-[11px] font-bold tracking-widest ${
-                isScanning ? 'text-amber-300' : isLight ? 'text-cyan-700' : 'text-cyan-300'
+              className={`mt-1.5 text-[10px] font-bold tracking-widest uppercase ${
+                isLight ? 'text-cyan-700' : 'text-cyan-300'
               }`}
             >
-              {isScanning ? 'SCANNING' : 'SHIELD'}
+              TRUST ANCHOR
             </span>
-          </button>
-          <div
-            className={`mt-2 text-xs font-mono font-semibold tabular-nums ${
-              isLight ? 'text-emerald-600' : 'text-emerald-400'
-            }`}
-          >
-            ★ {xp} XP
           </div>
         </div>
 
@@ -280,40 +260,23 @@ export const OrbitHub: React.FC<OrbitHubProps> = ({
           }`}
         />
 
-        {/* Center Shield Button */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center z-20">
-          <button
-            type="button"
-            onClick={handleShieldClick}
-            disabled={isScanning}
-            className={`w-[88px] h-[88px] rounded-full border-2 flex flex-col items-center justify-center transition-transform active:scale-95 cursor-pointer ${
-              isScanning
-                ? 'bg-amber-950/80 border-amber-400'
-                : isLight
-                ? 'bg-white border-cyan-500 shadow-[0_0_30px_rgba(14,165,233,0.30)]'
-                : 'bg-[#111927] border-cyan-400/80 shadow-[0_0_35px_rgba(34,211,238,0.35)]'
+        {/* Center Logo - PURE LOGO, NOT CLICKABLE TO SCAN */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center z-20 pointer-events-none select-none">
+          <div
+            className={`w-[88px] h-[88px] rounded-full border-2 flex flex-col items-center justify-center ${
+              isLight
+                ? 'bg-white border-cyan-500 shadow-[0_0_25px_rgba(14,165,233,0.25)]'
+                : 'bg-[#111927] border-cyan-400/80 shadow-[0_0_30px_rgba(34,211,238,0.30)]'
             }`}
-            title="Tap Shield to Scan URL"
           >
-            {isScanning ? (
-              <RefreshCw className="w-8 h-8 text-amber-400 animate-spin" />
-            ) : (
-              <Shield className="w-8 h-8 text-amber-400 stroke-[2.2]" />
-            )}
+            <Shield className="w-8 h-8 text-amber-400 stroke-[2.2]" />
             <span
-              className={`mt-1 text-[9px] font-bold tracking-widest ${
-                isScanning ? 'text-amber-300' : isLight ? 'text-cyan-700' : 'text-cyan-300'
+              className={`mt-1 text-[8.5px] font-bold tracking-widest uppercase ${
+                isLight ? 'text-cyan-700' : 'text-cyan-300'
               }`}
             >
-              {isScanning ? 'SCANNING' : 'SHIELD'}
+              TRUST ANCHOR
             </span>
-          </button>
-          <div
-            className={`mt-1 text-[10px] font-mono font-semibold tabular-nums ${
-              isLight ? 'text-emerald-600' : 'text-emerald-400'
-            }`}
-          >
-            ★ {xp} XP
           </div>
         </div>
 
@@ -369,7 +332,7 @@ export const OrbitHub: React.FC<OrbitHubProps> = ({
         <div className="flex items-center gap-2 mb-1.5 px-1">
           <Search className="w-3.5 h-3.5 text-cyan-400" />
           <span className={`text-[11px] font-mono font-semibold uppercase ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
-            Quick Scanner — Click Shield to Trigger:
+            Quick Scanner — Enter Link or Message Text:
           </span>
         </div>
 
@@ -378,16 +341,29 @@ export const OrbitHub: React.FC<OrbitHubProps> = ({
             type="text"
             value={quickInput}
             onChange={(e) => setQuickInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleRunQuickScan();
+              }
+            }}
             placeholder="Paste URL or message text (e.g. https://... or 'Your parcel is delayed')..."
             className={`flex-1 border rounded-xl px-4 py-3 text-xs font-mono focus:outline-none focus:border-cyan-400 ${inputStyle}`}
           />
           <button
             type="button"
-            onClick={handleShieldClick}
+            onClick={handleRunQuickScan}
             disabled={isScanning}
-            className="px-4 py-3 bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition cursor-pointer shrink-0 disabled:opacity-50"
+            className="px-4 py-3 bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition cursor-pointer shrink-0 disabled:opacity-50 flex items-center gap-1.5"
           >
-            {isScanning ? 'Scanning...' : 'Scan Now'}
+            {isScanning ? (
+              <>
+                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                <span>Scanning...</span>
+              </>
+            ) : (
+              <span>Scan Now</span>
+            )}
           </button>
         </div>
 
